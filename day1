@@ -1,0 +1,22 @@
+1)  CREATE TABLE depart( dept_id number(4) primary key,dept_name varchar2(30) NOT NULL,manager_id number(6) unique);
+
+2)   CREATE TABLE employees(emp_id number(6) primary key , empname varchar2(20),email char(25),phnum varchar(10),dept_id number(4));
+
+
+3) alter table employees add salary number(8,2);
+
+4)ALTER TABLE employees ADD FOREIGN KEY (dept_id) REFERENCES depart(dept_id);
+
+5)
+
+6)alter table employees drop column email;
+
+7)alter table employees add check (salary<10000);
+
+8)alter table employees rename to empl;
+
+9)CREATE TABLE depart1( dept_id number(4) primary key,dept_name varchar2(30) NOT NULL,manager_id number(6) unique);
+
+10)drop table depart1;
+
+
