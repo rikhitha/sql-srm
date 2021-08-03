@@ -1,0 +1,47 @@
+1) INSERT ALL
+  INTO depart (dept_id, dept_name, manager_id) VALUES (10, 'purchase', 123)
+  INTO depart (dept_id, dept_name, manager_id) VALUES (20, 'inventory', 345)
+  INTO depart (dept_id, dept_name, manager_id) VALUES (30, 'sales', 567)
+  INTO depart (dept_id, dept_name, manager_id) VALUES (40, 'materials', 789)
+  INTO depart (dept_id, dept_name, manager_id) VALUES (50, 'production', 911)
+SELECT * FROM dual;
+
+
+
+2)INSERT ALL
+  INTO employees (emp_id, empname,email,phnum, dept_id,salary) VALUES (101, 'Babu', 'babu@gmail.com',9448341201,10,12000)
+  INTO employees (emp_id, empname,email,phnum, dept_id,salary) VALUES (102, 'somu', 'somu@gmail.com',9448534120,20,10000)
+  INTO employees (emp_id, empname, email,phnum,dept_id,salary) VALUES (103, 'Ramu', 'ramu@gmail.com',9448886634,30,15000 )
+  INTO employees (emp_id, empname,email,phnum, dept_id,salary) VALUES (104, 'Gobu', 'gobu@gmail.com',9447783412,40,11500)
+  INTO employees (emp_id, empname,email,phnum, dept_id,salary) VALUES (105, 'Anbu', 'anbu@gmail.com',9848341200,50,22000)
+SELECT * FROM dual
+
+
+
+3) a)select e.empname,d.dept_name,d.dept_id from employees e,depart d where e.dept_id=d.dept_id and d.dept_name='materials';
+
+b)select e.empname,d.dept_name,d.dept_id from employees e,depart d where e.dept_id=d.dept_id and d.dept_name='sales';
+
+c)select e.empname,d.dept_name,e.salary from employees e,depart d where e.dept_id=d.dept_id and d.dept_name='materials' and e.salary>10000;
+
+d)select empname,salary*5/100 as bonus from employees;
+
+e)select * from employees,depart where empname like 'R_%'and employees.dept_id=depart.dept_id;
+
+
+4)a) update employees  set salary=salary+salary*5/100 where dept_id in (select dept_id from depart where dept_name='sales');
+
+b)update employees  set salary=salary-salary*3/100 where dept_id in (select dept_id from depart where dept_name='inventory');
+
+5)create table updatedemp as (select emp_id ,empname,email from employees where dept_id>20);
+
+6)delete from employees where salary<12000;
+
+7) create table viewtab as (select * from updatedemp);
+
+8)create view mytab as select emp_id,empname,dept_id from employees where salary>10000;
+
+9) select * from employees order by salary;
+
+10) select * from employees order by empname desc;
+
