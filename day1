@@ -5,9 +5,9 @@
 
 3) alter table employees add salary number(8,2);
 
-4)ALTER TABLE employees ADD FOREIGN KEY (dept_id) REFERENCES depart(dept_id);
+4)ALTER TABLE employees ADD FOREIGN KEY  forkey (dept_id) REFERENCES depart(dept_id);
 
-5)
+5)alter table employees drop constraint foreign key forkey;
 
 6)alter table employees drop column email;
 
