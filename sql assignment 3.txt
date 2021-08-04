@@ -1,0 +1,57 @@
+INSERT ALL
+  INTO students (stud_id, stud_name,gender,tot_mark) VALUES (10, 'Anu', 'Female',553)
+  INTO students (stud_id, stud_name, gender,tot_mark) VALUES (20, 'Anbu', 'Male',345)
+  INTO students(stud_id, stud_name, gender,tot_mark) VALUES (30, 'Malini','Female',567)
+  INTO students (stud_id, stud_name, gender,tot_mark) VALUES (40, 'Sankar', 'Male',590)
+  INTO students (stud_id, stud_name, gender,tot_mark) VALUES (50, 'Varshan', 'Male',587)
+SELECT * FROM dual;
+
+
+
+1)a)select max(tot_mark) from students;
+
+b)select gender,count(gender) from students group by gender;
+
+c)select gender,avg(tot_mark) from students group by gender;
+
+d)select stud_name from students where tot_mark>(select avg(tot_mark) from students);
+
+2)a)select stud_name from students where stud_name like '___';
+
+b)select * from students order by gender asc,tot_mark desc;
+
+3)select distinct(((select max(tot_mark) from students) - (select min(tot_mark) from students))) as differnce from students;
+
+4)create view mytabstudent as select * from students where tot_mark>350 with check option;
+
+5)
+INSERT ALL
+  INTO students (stud_id, stud_name,gender,tot_mark) VALUES (60, 'neha', 'Female',0)
+  INTO students (stud_id, stud_name, gender,tot_mark) VALUES (70, 'Harsh', 'Male',343)
+  INTO students(stud_id, stud_name, gender,tot_mark) VALUES (80, 'sam','Female',0)
+SELECT * FROM dual;
+
+savepoint insertsave;
+
+delete from students where tot_mark=0;
+
+rollback to insetsave;
+
+commit;
+
+rollback to insertsave;
+
+6)
+declare
+a int:=8;
+cube int;
+root int;
+begin
+cube:= a*a*a;
+select power(8,1/3) into a from dual;dbms_output.put_line('The Cube of the number is'||cube);
+dbms_output.put_line('The cuberoot of number is' || a);
+end;
+
+set serveroutput on;
+
+/
