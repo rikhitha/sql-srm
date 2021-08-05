@@ -1,0 +1,147 @@
+
+1)multiplication table for a given number
+declare
+n number;
+i number;
+begin
+n:=&n;
+for i in 1..10
+loop
+dbms_output.put_line(n||' x '||i||' = '||n*i);
+end loop;
+end;
+
+2)
+
+DECLARE
+      n number:= &first_n_number;
+    BEGIN
+     DBMS_OUTPUT.PUT_LINE ('The first '||n||' numbers are: ');
+        for i in 0..n loop
+           dbms_output.put(i||'  ');
+           insert into temp values(i);
+        END LOOP;
+        dbms_output.new_line;
+   END;
+
+
+3)
+
+DECLARE
+    CURSOR z_emp_info IS
+      SELECT emp_id,
+             empname,
+             email,
+             salary
+      FROM   employees where salary>20000;
+    r_emp_info z_emp_info%ROWTYPE;
+BEGIN
+    OPEN z_emp_info;
+    LOOP
+        FETCH z_emp_info INTO r_emp_info;
+        EXIT WHEN z_emp_info%NOTFOUND;
+        dbms_output.Put_line('Employees Information:: '
+                             ||'  ID: '
+                             ||r_emp_info.emp_id
+                             ||'  Name: '
+                             ||r_emp_info.empname
+                             ||' email: '
+                             ||r_emp_info.email
+                             ||' salary: '
+                             ||r_emp_info.salary);
+    END LOOP;
+    dbms_output.Put_line('Total number of rows : '
+                         ||z_emp_info%rowcount);
+    CLOSE z_emp_info;
+END;
+/
+
+
+4) select * from employees;
+
+CREATE OR REPLACE TRIGGER department_insert_update
+       BEFORE INSERT OR UPDATE ON employees
+               FOR EACH ROW
+        DECLARE
+          dup_flag  INTEGER;
+        BEGIN
+            :NEW.empname := UPPER(:NEW.empname);
+       END;
+
+
+5)
+ DECLARE
+        tempp employees%rowtype;
+    BEGIN
+        SELECT * INTO tempp FROM employees where emp_id=121;
+    EXCEPTION
+        WHEN no_data_found THEN
+            dbms_output.put_line('Table havet data');
+   END;
+    
+
+6)
+
+DECLARE 
+    s VARCHAR2(10) := 'abccba'; 
+    l VARCHAR2(20); 
+    t VARCHAR2(10); 
+BEGIN 
+    FOR i IN REVERSE 1..Length(s) LOOP 
+        l := Substr(s, i, 1); 
+        t := t 
+             ||'' 
+             ||l; 
+    END LOOP; 
+    IF t = s THEN 
+      dbms_output.Put_line(t 
+                           ||'' 
+                           ||' is palindrome'); 
+    ELSE 
+      dbms_output.Put_line(t 
+                           ||'' 
+                           ||' is not palindrome'); 
+    END IF; 
+END; 
+/
+
+7)
+
+DECLARE
+Sample_exception EXCEPTION;
+PROCEDURE nested_block
+IS
+BEGIN
+Dbms_output.put_line('Inside nested block');
+Dbms_output.put_line('Raising sample_exception from nested block');
+RAISE sample_exception;
+EXCEPTION
+WHEN sample_exception THEN 
+Dbms_output.put_line ('Exception captured in nested block Raising to main block');
+RAISE;
+END;
+BEGIN
+Dbms_output.put_line('Inside main block');
+Dbms_output.put_line('Calling nested block');
+Nested_block;
+EXCEPTION
+WHEN sample_exception THEN	
+Dbms_output.put_line ('Exception captured in main block');
+END;
+/
+
+8)
+
+select * from depart;
+
+CREATE OR REPLACE PROCEDURE deleteproc
+    AS
+    BEGIN
+       delete from depart where dept_id=30;
+       dbms_output.put_line('deleted successfully!');
+   END;
+
+EXECUTE deleteproc;
+
+select * from deleteproc;
+
