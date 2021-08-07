@@ -1,0 +1,121 @@
+ 1)CREATE TABLE myemp( eno number(4) primary key,ename varchar2(30) NOT NULL,dept number(4) NOT NULL,esal number(8,2) );
+
+ 
+
+a)alter table myemp add experience number(2) NOT NULL;
+
+INSERT ALL
+      INTO myemp (eno, ename, dept,esal,experience) VALUES (10, 'ravi', 101,20000,1)
+      INTO myemp (eno, ename, dept,esal,experience) VALUES (20, 'abi', 102,10000,2)
+      INTO myemp (eno, ename, dept,esal,experience) VALUES (30, 'harsh', 103,7000,3)
+      INTO myemp (eno, ename, dept,esal,experience) VALUES (40, 'anu', 104,30000,4)
+      INTO myemp (eno, ename, dept,esal,experience) VALUES (50, 'riya', 105,40000,5)
+   SELECT * FROM dual
+
+b)update myemp set esal=esal+esal*7/100 where esal >=5000 and esal<10000;
+
+2)alter table myemp add comm varchar2(10) ;
+
+ INSERT ALL
+          INTO myemp (eno, ename, dept,esal,experience,comm) VALUES (60, 'pavi', 106,20000,1,'english')
+          INTO myemp (eno, ename, dept,esal,experience,comm) VALUES (70, 'abu', 107,10000,2,NULL)
+          INTO myemp (eno, ename, dept,esal,experience,comm) VALUES (80, 'harshini', 108,7000,3,NULL)
+          INTO myemp (eno, ename, dept,esal,experience,comm) VALUES (90, 'anupa', 109,30000,4,'hindi')
+          INTO myemp (eno, ename, dept,esal,experience,comm) VALUES (100, 'riyas', 110,40000,5,'tamil')
+      SELECT * FROM dual
+
+create table empcommmnull as (select eno,ename,comm from myemp where comm IS NULL)
+
+select * from empcommmnull;
+
+       ENO ENAME                          COMM
+---------- ------------------------------ ----------
+        10 ravi
+        20 abi
+        30 harsh
+        40 anu
+        50 riya
+        70 abu
+        80 harshini
+
+3)ALTER TABLE myemp DROP PRIMARY KEY;
+
+  alter TABLE myemp add constraint primary key deptid;
+
+4)CREATE OR REPLACE TRIGGER weekend1_trigger 
+BEFORE INSERT OR UPDATE OR DELETE on myemp 
+  FOR EACH ROW
+  DECLARE
+  v_day DATE := TRUNC(SYSDATE);
+  ex_invalid  EXCEPTION; 
+  BEGIN
+    IF TO_CHAR(v_day,'DY')IN ('SAT','SUN') THEN
+       RAISE ex_invalid;
+    END IF;
+    EXCEPTION 
+    WHEN ex_invalid THEN 
+      RAISE_APPLICATION_ERROR(-20001,'Sorry Access on week-end days is denied');
+  END;
+
+5)
+
+DECLARE
+Sample_exception EXCEPTION;
+PROCEDURE nested_block
+IS
+BEGIN
+Dbms_output.put_line('Inside nested block');
+Dbms_output.put_line('Raising sample_exception from nested block');
+RAISE sample_exception;
+EXCEPTION
+WHEN sample_exception THEN 
+Dbms_output.put_line ('Exception captured in nested block Raising to main block');
+RAISE;
+END;
+BEGIN
+Dbms_output.put_line('Inside main block');
+Dbms_output.put_line('Calling nested block');
+Nested_block;
+EXCEPTION
+WHEN sample_exception THEN	
+Dbms_output.put_line ('Exception captured in main block');
+END;
+/
+
+6)CREATE TABLE ebill( cno varchar2(10) primary key,cname varchar2(30) NOT NULL,nounits number(4) NOT NULL,bamt number(8,2) )
+/
+
+desc ebill;
+
+INSERT ALL
+         INTO ebill (cno, cname,nounits,bamt) VALUES ('a101', 'ravi', 1,'')
+          INTO ebill (cno, cname,nounits,bamt) VALUES ('a102', 'abi', 2,'')
+          INTO ebill (cno, cname,nounits,bamt) VALUES ('a103', 'harsh', 30,'')
+          INTO ebill (cno, cname,nounits,bamt) VALUES ('a104', 'anu', 14,'')
+          INTO ebill (cno, cname,nounits,bamt) VALUES ('a105', 'riya', 15,'')
+      SELECT * FROM dual
+
+select * from ebill;
+
+CREATE OR REPLACE PROCEDURE ebill AS ebillamt ebill%rowtype;
+CURSOR c1 IS
+SELECT *
+FROM ebill;
+cno number,
+vname varchar2,
+nounits number
+BEGIN
+
+IF nounits>=10
+ bamt:=nounits*4+200;
+ELSE IF nounits>=30
+  bamt:=nounits*6+300; 
+
+update ebill set bamt=bamt where bamt=NULL;
+
+END LOOP;
+END;
+
+
+
+
